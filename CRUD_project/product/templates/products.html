@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% block start %}
+
+
+
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+<style>
+.text{
+	color: green;
+	font-weight: bold;
+}
+</style>
+
+<div class="container mt-5">
+	
+	<form action=""class="col-6 mx-auto card p-3 shadow-lg" method="post" enctype="multipart/form-data">
+		{% csrf_token %}
+		<h2 class="text text-center"> Product Management </h2>
+		<br>
+		<h3>Add Product</h3>
+		<hr>
+		<div class="form-group">
+		<label for="exampleInputEmail1">Product Name</label>
+		<input name="product_name" type="text" class="form-control" required>
+		</div>
+		<div class="form-group">
+		<label for="exampleInputPassword1" >Product Description</label>
+		<textarea name="product_description" class="form-control" required ></textarea>
+		</div>
+		<div class="form-group">
+			<label for="exampleInputPassword1">Product Image</label>
+			<input name="product_image" type="file" class="form-control" >
+		</div>
+	
+		<button type="submit" class="btn btn-success">Add Product</button>
+	</form>
+
+	<hr>
+	<div class="class mt-5">
+		<form action="">
+
+		<div class="max-auto col-6">
+			<div class="form-group">
+		</form>
+		</div>
+	</div>
+	<table class="table mt-5">
+		<thead>
+
+		<tr>
+			<th scope="col">Id</th>
+			<th scope="col">Product Name</th>
+			<th scope="col">Product Desc</th>
+			<th scope="col">Image</th>
+			<th scope="col">Actions</th>
+		</tr>
+		</thead>
+		<tbody>
+			{% for product in products %}
+		<tr>
+			<th scope="row">{{forloop.counter}}</th>
+			<td>{{product.product_name}}</td>
+			<td>{{product.product_description}}</td>
+			<td>
+				<img src="/product {{ product.product_image }}" style="height: 100px;"> </td>
+				<td>
+					<a href="{% url 'delete_product' product.id %}" class="btn btn-danger m-2">Delete</a>
+					<a href="{% url 'update_product' product.id %}" class="btn btn-success">Update</a>
+				</td>
+		</tr>
+		{% endfor %}
+		</tbody>
+	</table>
+	
+</div>
+
+{% endblock %}
